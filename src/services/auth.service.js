@@ -5,6 +5,7 @@ const register = async (email, username, password) => {
         body: JSON.stringify({"email": email, "username": username, "password": password})
     });
     let data = await response;
+    console.log("test-commit");
     if (data.status == 201) {
         localStorage.setItem("toLogin", true);
     }
