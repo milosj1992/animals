@@ -14,7 +14,8 @@ const styles = {
         gap: "10px",
         border: "3px solid blue",
         padding: "5px",
-        borderRadius: "4px"
+        borderRadius: "4px",
+        flexWrap: "wrap"
     }
 
 }
