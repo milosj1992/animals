@@ -5,15 +5,17 @@ import UserService from "../services/user.service";
 
 export const Login = () => {
     const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [checkanimals, setCheckAnimals] = useState([]);
-    const showlogin = localStorage.getItem("toLogin");
+
     useEffect(() => {
         if (checkanimals.items != undefined || localStorage.getItem("user")) {
             navigate("/animals");
         }
     }, [checkanimals]);
+
     const getAnima = () => {
         UserService.getAnimals(1)
             .then(r => {
@@ -35,17 +37,13 @@ export const Login = () => {
         });
     }
     return (
-        showlogin ?
-            <div>
-                <div className="input-credit">
-                    <input className="email" placeholder="Email" onChange={updateEmail} value={email || ""}/>
-                    <input className="password" placeholder="Password" onChange={updatePassword}
-                           value={password || ""}/>
-                    <button onClick={() => handleLogin()}></button>
-                </div>
-            </div> : <div>
-                <p>you have to register first</p>
-                <a href="/auth/register">here</a>
+        <div>
+            <div className="input-credit">
+                <input className="email" placeholder="Email" onChange={updateEmail} value={email || ""}/>
+                <input className="password" placeholder="Password" type="password" onChange={updatePassword}
+                       value={password || ""}/>
+                <button onClick={() => handleLogin()}>Login</button>
             </div>
+        </div>
     )
 }

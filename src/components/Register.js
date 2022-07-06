@@ -30,8 +30,8 @@ export const Register = () => {
             <div className="input-credit">
                 <input className="email" placeholder="Email" onChange={updateEmail} value={email || ""}/>
                 <input className="username" placeholder="Username" onChange={updateUsername} value={username || ""}/>
-                <input className="password" placeholder="Password" onChange={updatePassword} value={password || ""}/>
-                <button onClick={() => handleRegister()}></button>
+                <input className="password" placeholder="Password" type="password" onChange={updatePassword} value={password || ""}/>
+                <button onClick={() => handleRegister()}>Register</button>
             </div>
         </div>
     )
