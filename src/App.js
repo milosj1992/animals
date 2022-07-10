@@ -33,7 +33,7 @@ const styles = {
 function App() {
     const [current, setCurrent] = useState(null);
 
-    const callLogut=()=>{
+    const callLogut = () => {
         AuthService.logout();
         setCurrent(null);
 
@@ -51,21 +51,23 @@ function App() {
                         Animals
                     </Link>
                 </div>
-                {current != null ? <div>User: {current.user.username}</div> : null}
+                {current != null ?
+                    <div>User: {current.user.username}</div> : null}
                 <div style={styles.NavRight}>
-                    {current == null ? <div>
-                                            <div>
-                                                <Link to={"/auth/login"}>
-                                                    Login
-                                                </Link>
-                                            </div>
-                                            <div>
-                                                <Link to={"/auth/register"}>
-                                                    Register
-                                                </Link>
-                                            </div>
-                                        </div> :
-                        <div onClick={()=>callLogut()}>
+                    {current == null ?
+                        <div>
+                            <div>
+                                <Link to={"/auth/login"}>
+                                    Login
+                                </Link>
+                            </div>
+                            <div>
+                                <Link to={"/auth/register"}>
+                                    Register
+                                </Link>
+                            </div>
+                        </div> :
+                        <div onClick={() => callLogut()}>
                             <Link to={"/auth/login"}>
                                 Logout
                             </Link>

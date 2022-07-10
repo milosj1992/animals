@@ -1,5 +1,8 @@
+import AuthService from "./auth.service";
+
 export default function authHeader() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    let user;
+    AuthService.currentUser.subscribe(x=> user=x)
 
     if (user && user.token) {
         return {Authorization: 'Bearer ' + user.token};
