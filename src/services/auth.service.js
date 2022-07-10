@@ -1,3 +1,7 @@
+import { BehaviorSubject } from 'rxjs';
+
+const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')));
+
 const register = async (email, username, password) => {
     let response = await fetch("/auth/register", {
         method: 'POST',
@@ -6,10 +10,11 @@ const register = async (email, username, password) => {
     });
     let data = await response;
 
-    if (data.status == 201) {
+    if (data.status === 201) {
         return data;
     }
 };
+
 const login = async (email, password) => {
     let response = await fetch("/auth/login", {
         method: 'POST',
@@ -20,14 +25,21 @@ const login = async (email, password) => {
 
     if (data.token) {
         localStorage.setItem("user", JSON.stringify(data));
+        currentUserSubject.next(data);
         return data;
     }
 
 };
-const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem("user"));
+
+const logout=()=> {
+    localStorage.removeItem('user');
+    localStorage.removeItem('arrLength');
+    currentUserSubject.next(null);
 }
+
 const AuthService = {
-    register, login, getCurrentUser
+    register, login,logout, currentUser: currentUserSubject.asObservable(),
+    get currentUserValue () { return currentUserSubject.value }
 }
+
 export default AuthService;

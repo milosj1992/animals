@@ -3,6 +3,8 @@ import {Login} from "./components/Login";
 import {Register} from "./components/Register";
 import {Animals} from "./components/Animals";
 import {Link, Route, Routes} from "react-router-dom";
+import AuthService from "./services/auth.service";
+import {useEffect, useState} from "react";
 
 const styles = {
     Main: {
@@ -12,7 +14,7 @@ const styles = {
     },
     NavWrapper: {
         display: "flex",
-        padding:"0 20px"
+        padding: "0 20px"
     },
     NavLeft: {
         display: "flex",
@@ -21,14 +23,26 @@ const styles = {
     NavRight: {
         display: "flex",
         marginLeft: "auto",
-        gap:"10px"
+        gap: "10px"
     },
-    WrapperUnderNav:{
-        marginTop:"20px"
+    WrapperUnderNav: {
+        marginTop: "20px"
     }
 }
 
 function App() {
+    const [current, setCurrent] = useState(null);
+
+    const callLogut=()=>{
+        AuthService.logout();
+        setCurrent(null);
+
+    }
+
+    useEffect(() => {
+        AuthService.currentUser.subscribe(x => setCurrent(x));
+    }, [current])
+
     return (
         <div className="App" style={styles.Main}>
             <nav style={styles.NavWrapper}>
@@ -37,20 +51,28 @@ function App() {
                         Animals
                     </Link>
                 </div>
+                {current != null ? <div>User: {current.user.username}</div> : null}
                 <div style={styles.NavRight}>
-                    <div>
-                        <Link to={"/auth/login"}>
-                            Login
-                        </Link>
-                    </div>
-                    <div>
-                        <Link to={"/auth/register"}>
-                            Register
-                        </Link>
-                    </div>
+                    {current == null ? <div>
+                                            <div>
+                                                <Link to={"/auth/login"}>
+                                                    Login
+                                                </Link>
+                                            </div>
+                                            <div>
+                                                <Link to={"/auth/register"}>
+                                                    Register
+                                                </Link>
+                                            </div>
+                                        </div> :
+                        <div onClick={()=>callLogut()}>
+                            <Link to={"/auth/login"}>
+                                Logout
+                            </Link>
+                        </div>}
                 </div>
             </nav>
-            <div  style={styles.WrapperUnderNav}>
+            <div style={styles.WrapperUnderNav}>
                 <Routes>
                     <Route path="/auth/register" element={<Register/>}/>
                     <Route path="/auth/login" element={<Login/>}/>
