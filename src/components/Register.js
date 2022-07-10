@@ -66,7 +66,7 @@ export const Register = () => {
         if (afterForm.current.context._errors.length === 0) {
             AuthService.register(email, username, password)
                 .then(r => {
-                    if (r.status == 201) {
+                    if (r.status === 201) {
                         navigate("/auth/login");
                     }
                 });

@@ -44,10 +44,10 @@ export const Login = () => {
     const afterForm = useRef();
 
     useEffect(() => {
-        if (checkanimals.items != undefined || localStorage.getItem("user")) {
+        if (checkanimals.items !== undefined || localStorage.getItem("user")) {
             navigate("/animals");
         }
-    }, [checkanimals]);
+    }, [checkanimals,navigate]);
 
 
     const getAnima = () => {

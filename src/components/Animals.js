@@ -27,13 +27,13 @@ export const Animals = () => {
     const [pagecounter, setPagecounter] = useState(parseInt(animalLength / 20) + 1);
 
     useEffect(() => {
-        if (pagecounter != 0 && animalLength != null) {
+        if (pagecounter !== 0 && animalLength != null) {
             UserService.getAnimals(pagecounter).then(response => setAnimal(animal.concat(response.items))).then(setPagecounter(pagecounter - 1));
         }
-    }, [animal]);
+    }, [animal,pagecounter,animalLength]);
 
     return (<div style={styles.animalWrapper}>
-        {animal != undefined && animal[0] != undefined ?
+        {animal !== undefined && animal[0] !== undefined ?
             animal.map((item, key) => {
                 return (
                     <div key={key} style={styles.animalinMap}>
