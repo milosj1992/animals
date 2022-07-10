@@ -40,7 +40,7 @@ function App() {
     }
 
     useEffect(() => {
-        AuthService.currentUser.subscribe(x => setCurrent(x));
+        AuthService.currentUser.subscribe(x => setCurrent(x));//getting last localstorage change
     }, [current])
 
     return (

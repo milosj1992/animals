@@ -24,7 +24,9 @@ export const Animals = () => {
     const animalLength = localStorage.getItem("arrLength");
 
     const [animal, setAnimal] = useState([]);
-    const [pagecounter, setPagecounter] = useState(parseInt(animalLength / 20) + 1);
+    const [pagecounter, setPagecounter] = useState(parseInt(animalLength / 20) + (animalLength%20===0?0:1));//if we have 40 animals thats 2 requests
+    //because request returns maximum 20 animals,if we have 39 animals remainder is not 0
+    // and we need to add 1 because integer of 39/20 is 1 and that will not leave us without last request
 
     useEffect(() => {
         if (pagecounter !== 0 && animalLength != null) {

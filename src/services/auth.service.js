@@ -25,7 +25,7 @@ const login = async (email, password) => {
 
     if (data.token) {
         localStorage.setItem("user", JSON.stringify(data));
-        currentUserSubject.next(data);
+        currentUserSubject.next(data);//updates with last localstorage change
         return data;
     }
 
@@ -34,12 +34,12 @@ const login = async (email, password) => {
 const logout=()=> {
     localStorage.removeItem('user');
     localStorage.removeItem('arrLength');
-    currentUserSubject.next(null);
+    currentUserSubject.next(null);//updates with last localstorage change
 }
 
 const AuthService = {
     register, login,logout, currentUser: currentUserSubject.asObservable(),
-    get currentUserValue () { return currentUserSubject.value }
+    get currentUserValue () { return currentUserSubject.value }//exporting function with last localstoragechange
 }
 
 export default AuthService;
